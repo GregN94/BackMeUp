@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source `pwd`/config #configuration file
+source `pwd`/helpFile.sh
 
 RED=$'\e[1;31m'
 YELLOW=$'\e[1;33m'
@@ -12,7 +13,6 @@ DIFF_SAME_DATE="4046" #coefficient to calculate diff between dates
 current_day=$(date +%d-%m-%Y)
 daily_dir="$GENERAL_DIR/$current_day"
 deleted=false
-
 
 overwriteDir() {
     if [ $AUTO_OVERWRITE = false ];
@@ -122,10 +122,6 @@ defaultBackup(){
     dailyBackup
     deleteOldBackup
     sudo chmod -R 777 $GENERAL_DIR
-}
-
-printHelp(){
-    printf "help\n"
 }
 
 echo "$2"
