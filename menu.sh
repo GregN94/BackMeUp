@@ -5,7 +5,7 @@ source `pwd`/colors.sh
 
 if [[ $1 = "-ls" || $1 = "-list" || $1 = "--list" ]];
 then
-    printBackups
+    printBackups $2
 elif [[ $1 = "-rm" || $1 = "-remove" || $1 = "--remove" ]];
 then
     deleteBackups

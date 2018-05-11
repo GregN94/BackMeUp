@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source `pwd`/config #configuration file
+source `pwd`/config
 source `pwd`/helpFile.sh
 source `pwd`/colors.sh
 
@@ -10,21 +10,24 @@ current_day=$(date +%d-%m-%Y)
 daily_dir="$GENERAL_DIR/$current_day"
 deleted=false
 
+overwrite(){
+    printf "\t$1\n"
+    sudo rm -rf $1
+    mkdir $1
+}
+
 overwriteDir() {
     if [ $AUTO_OVERWRITE = false ];
     then
         printf "${PURPLE}Do you want to overwrite it? [Y/n]:${NORMAL}"
         read decision
         if [ $decision = "y" -o $decision = "Y" ]; then
-            printf "Overwriting backup dir\n"
-            rm -rf $1
-            mkdir $1
+            printf "Overwriting backup dir:\n"
+            overwrite $1
         fi
     else
         printf "${PURPLE}Auto overwriting daily backup:\n${NORMAL}"
-        printf "\t$1\n"
-        sudo rm -fr $1
-        mkdir $1
+        overwrite $1
     fi
 }
 
@@ -86,7 +89,12 @@ printAutoOverwrite(){
 }
 
 printBackups(){
-    ls -l $GENERAL_DIR
+    if [[ $1 = "" ]];
+    then
+        ls -l $GENERAL_DIR
+    else
+        ls -l $GENERAL_DIR/$1
+    fi
 }
 
 deleteBackups(){

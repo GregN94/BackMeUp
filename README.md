@@ -23,12 +23,12 @@ Features included in programm:
 
 -Option to view help.
 
+-Listing content of backups.
+
 
 TODO:
 
 -Option of adding/removing new folders to be backuped.
-
--Listing content of backups.
 
 -Option to remove single backup.
 

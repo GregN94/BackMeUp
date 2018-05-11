@@ -11,14 +11,14 @@ exist programm will overwrite this backup(if AUTO_OVERWRITE is set to true) or a
 At the end programm will delete all \"old backups\".
 
 ${PURPLE}Script can be also run with many options:
-         Syntax                  Arguments         Description ${NORMAL}
+         Syntax                  Arguments       Description ${NORMAL}
 
-  -h,  -help   or --help   |                  |  Displays help.
-  -a,  -auto   or --auto   |                  |  Turn OFF/ON AUTO_OVERWRITE backups.
-  -p,  -print  or --print  |                  |  Prints current configuration.
-  -rm, -remove or --remove |                  |  Deletes backups.
-  -ls, -list   or --list   |                  |  Lists all backups.
-  -t,  -time   or --time,  | -[time in days]  |  Changes \"LiveTime\" of backups.${NORMAL}
+  -h,  -help   or --help   |                 |  Displays help.
+  -a,  -auto   or --auto   |                 |  Turn OFF/ON AUTO_OVERWRITE backups.
+  -p,  -print  or --print  |                 |  Prints current configuration.
+  -rm, -remove or --remove |                 |  Deletes backups.
+  -ls, -list   or --list   | [backup dir]    |  Lists all backups. Adding argument list contnt od selected backup.
+  -t,  -time   or --time,  | [time in days]  |  Changes \"LiveTime\" of backups.${NORMAL}
 \n"
 
 }
