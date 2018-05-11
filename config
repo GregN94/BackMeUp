@@ -1,7 +1,8 @@
 AUTO_OVERWRITE=true
+
+DAYS_TO_KEEP_BACKUP=8
+
+GENERAL_DIR=/home/$USER/backup #dir where we want to collect our backup
+
 DIRS_TO_BACKUP=("/home/$USER/Desktop"
                 "/home/$USER/fzf")
-GENERAL_DIR=/home/$USER/backup #dir where we want to collect our backup
-DAYS_TO_KEEP_BACKUP=7
-days=8
-days2=9

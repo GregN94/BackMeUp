@@ -2,11 +2,7 @@
 
 source `pwd`/config #configuration file
 source `pwd`/helpFile.sh
-
-RED=$'\e[1;31m'
-YELLOW=$'\e[1;33m'
-GREEN=$'\e[1;32m'
-NORMAL=$'\e[0m'
+source `pwd`/colors.sh
 
 suffix="$GENERAL_DIR"/
 DIFF_SAME_DATE="4046" #coefficient to calculate diff between dates
@@ -17,7 +13,7 @@ deleted=false
 overwriteDir() {
     if [ $AUTO_OVERWRITE = false ];
     then
-        printf "${RED}Do you want to overwrite it? [Y/n]:${NORMAL}"
+        printf "${LIGHT_RED}Do you want to overwrite it? [Y/n]:${NORMAL}"
         read decision
         if [ $decision = "y" -o $decision = "Y" ]; then
             printf "Overwriting backup dir\n"
@@ -25,9 +21,9 @@ overwriteDir() {
             mkdir $1
         fi
     else
-        printf "${RED}Auto overwriting daily backup:\n${NORMAL}"
+        printf "${LIGHT_RED}Auto overwriting daily backup:\n${NORMAL}"
         printf "\t$1\n"
-        rm -fr $1
+        sudo rm -fr $1
         mkdir $1
     fi
 }
@@ -45,7 +41,7 @@ createBackupDir() {
     if mkdir "$GENERAL_DIR" > /dev/null; then
         printf "Creating backup dir\n"
     else
-        printf "${YELLOW}Ommiting creating backup dir(exist)\n${NORMAL}"
+        printf "${LIGHT_YELLOW}Ommiting creating backup dir(exist)\n${NORMAL}"
     fi
 }
 
@@ -54,20 +50,20 @@ dailyBackup() {
         printf "Creating today backup\n"
         createBackup
     else
-        printf "${YELLOW}Daily backup already made, ${NORMAL}"
+        printf "${LIGHT_YELLOW}Daily backup already made, ${NORMAL}"
         overwriteDir $daily_dir
         createBackup
     fi
 }
 
 deleteOldBackup() {
-    printf "${RED}Deleting old backups:\n${NORMAL}"
+    printf "${LIGHT_RED}Deleting old backups:\n${NORMAL}"
     for path_to_backup_from_day in "$GENERAL_DIR"/*
     do
         backup_dir=${path_to_backup_from_day#"$suffix"}
         difference=$(( $current_day - $backup_dir + $DIFF_SAME_DATE ))
         if (( difference >= DAYS_TO_KEEP_BACKUP )); then
-            rm -rf $path_to_backup_from_day
+            sudo rm -rf $path_to_backup_from_day
             printf "\t$backup_dir\n${NORMAL}"
             deleted=true
         fi
@@ -82,11 +78,11 @@ deleteOldBackup() {
 printAutoOverwrite(){
     if [ $AUTO_OVERWRITE = false ];
     then
-        COLOR=$RED
+        COLOR=$LIGHT_RED
     else
         COLOR=$GREEN
     fi
-    printf "${YELLOW}AUTO_OVERWRITE${NORMAL} turned ${COLOR}$AUTO_OVERWRITE\n${NORMAL}"
+    printf "${LIGHT_YELLOW}AUTO_OVERWRITE${NORMAL} turned ${COLOR}$AUTO_OVERWRITE\n${NORMAL}"
 }
 
 printBackups(){
@@ -101,15 +97,26 @@ changeOverwriteMode(){
     if [ $AUTO_OVERWRITE = false ];
     then
         sed -i -e 's/AUTO_OVERWRITE=false/AUTO_OVERWRITE=true/g' config
-        printf "Changed ${YELLOW}AUTO_OVERWRITE${NORMAL} mode to ${GREEN}true\n${NORMAL}"
+        printf "Changed ${LIGHT_YELLOW}AUTO_OVERWRITE${NORMAL} mode to ${GREEN}true\n${NORMAL}"
     else
         sed -i -e 's/AUTO_OVERWRITE=true/AUTO_OVERWRITE=false/g' config
-        printf "Changed ${YELLOW}AUTO_OVERWRITE${NORMAL} mode to ${RED}false\n${NORMAL}"
+        printf "Changed ${LIGHT_YELLOW}AUTO_OVERWRITE${NORMAL} mode to ${LIGHT_RED}false\n${NORMAL}"
     fi
 }
 
-changeTimeLive(){
-        sed -i -e 's/days2=9/10/g' config
+getAbsoluteNum(){
+    var=$1
+    while [[ $var == *"-"* ]];
+    do
+        var=${var#-}
+    done
+    echo "$var"
+}
+
+changeLiveTime(){
+    days_to_change=$( getAbsoluteNum $1 )
+    sed -i "s/^\(DAYS_TO_KEEP_BACKUP=\).*/\1$days_to_change/" config
+    printf "Changed ${PURPLE}\"LiveTime\"${NORMAL} to ${GREEN}$days_to_change days\n${NORMAL}".
 }
 
 printCurrentConfig(){
@@ -124,29 +131,28 @@ defaultBackup(){
     sudo chmod -R 777 $GENERAL_DIR
 }
 
-echo "$2"
 
-if [[ $1 = "-ls" ]];
+if [[ $1 = "-ls" || $1 = "-list" || $1 = "--list" ]];
 then
     printBackups
-elif [[ $1 = "-rm" ]];
+elif [[ $1 = "-rm" || $1 = "-remove" || $1 = "--remove" ]];
 then
     deleteBackups
-elif [[ $1 = "-cm" ]];
+elif [[ $1 = "-a" || $1 = "--auto" || $1 = "-auto" ]];
 then
     changeOverwriteMode
-elif [[ $1 = "-print" ]];
+elif [[ $1 = "-p" || $1 = "-print" || $1 = "--print" ]];
 then
     printCurrentConfig
-elif [[ $1 = "-time" ]]
+elif [[ $1 = "-t" || $1 = "-time"  || $1 = "--time" ]];
 then
-    changeTimeLive
-elif [[ $1 = "-h" || $1 = "--help" ]];
+    changeLiveTime $2
+elif [[ $1 = "-h" || $1 = "--help" || $1 = "-help" ]];
 then
     printHelp
 elif [[ $1 = "" ]];
 then
     defaultBackup
 else
-    printf "${YELLOW}Unknow option $1 \n${NORMAL}"
+    printf "${LIGHT_YELLOW}Unknow option $1 \n${NORMAL}"
 fi

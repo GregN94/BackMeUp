@@ -19,18 +19,18 @@ Features included in programm:
 
 -Option to remove all backups.
 
+-Option to changing "live time" of backups.
+
+-Option to view help.
+
 
 TODO:
 
 -Option of adding/removing new folders to be backuped.
 
--Option to changing "live time" of backups.
-
 -Listing content of backups.
 
 -Option to remove single backup.
-
--Option to view help.
 
 -Automatically run up script on daily basis.
 
