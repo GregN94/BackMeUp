@@ -25,16 +25,16 @@ Features included in programm:
 
 -Listing content of backups.
 
+-Install file
+
+-Option to remove selectedd list of backups.
+
 
 TODO:
 
 -Option of adding/removing new folders to be backuped.
 
--Option to remove single backup.
-
 -Automatically run up script on daily basis.
-
--Install file??
 
 -Backup on remote drive/repository??
 

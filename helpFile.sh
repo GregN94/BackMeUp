@@ -1,6 +1,6 @@
 #!/bin/bash
 
-INSTALL_DIR=
+INSTALL_DIR=/home/grzegorz/BackMeUp
 source $INSTALL_DIR/colors.sh
 
 printHelp(){
@@ -17,7 +17,7 @@ ${PURPLE}Script can be also run with many options:
   -h,  -help   or --help   |                 |  Displays help.
   -a,  -auto   or --auto   |                 |  Turn OFF/ON AUTO_OVERWRITE backups.
   -p,  -print  or --print  |                 |  Prints current configuration.
-  -rm, -remove or --remove |                 |  Deletes backups.
+  -rm, -remove or --remove | [backup dir]    |  Deletes all backups. Adding arguments define list of backups to delete.
   -ls, -list   or --list   | [backup dir]    |  Lists all backups. Adding argument list contnt od selected backup.
   -t,  -time   or --time,  | [time in days]  |  Changes \"LiveTime\" of backups.${NORMAL}
 \n"

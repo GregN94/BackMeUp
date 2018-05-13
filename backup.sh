@@ -1,6 +1,6 @@
 #!/bin/bash
 
-INSTALL_DIR=
+INSTALL_DIR=/home/grzegorz/BackMeUp
 source $INSTALL_DIR/config
 source $INSTALL_DIR/helpFile.sh
 source $INSTALL_DIR/colors.sh
@@ -99,7 +99,17 @@ printBackups(){
 }
 
 deleteBackups(){
-    rm -rf "$GENERAL_DIR"/*
+    if [[ $1 = "" ]];
+    then
+        rm -rf "$GENERAL_DIR"/*
+        printf "${PURPLE}Deleting all folders in $GENERAL_DIR${NORMAL}\n"
+    else
+        for dir in ${@:1};
+            do
+            rm -rf "$GENERAL_DIR"/$dir
+            printf "${PURPLE}Deleting folder $GENERAL_DIR/$dir${NORMAL}\n"
+        done
+    fi
 }
 
 changeOverwriteMode(){
