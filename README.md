@@ -4,6 +4,7 @@ Simple command line programm written in bash to create and manage backups on you
 Installation:
 
 Clone this repository on your computer, go to cloned directory, and run ./install.sh:
+
     git clone https://github.com/GregN94/BackMeUp.git
     cd BackMeUp/
     ./install
