@@ -1,8 +1,9 @@
 #!/bin/bash
 
-source `pwd`/config
-source `pwd`/helpFile.sh
-source `pwd`/colors.sh
+INSTALL_DIR=
+source $INSTALL_DIR/config
+source $INSTALL_DIR/helpFile.sh
+source $INSTALL_DIR/colors.sh
 
 suffix="$GENERAL_DIR"/
 DIFF_SAME_DATE="4046" #coefficient to calculate diff between dates
@@ -104,10 +105,10 @@ deleteBackups(){
 changeOverwriteMode(){
     if [ $AUTO_OVERWRITE = false ];
     then
-        sed -i -e 's/AUTO_OVERWRITE=false/AUTO_OVERWRITE=true/g' config
+        sed -i -e 's/AUTO_OVERWRITE=false/AUTO_OVERWRITE=true/g' $INSTALL_DIR/config
         printf "Changed ${YELLOW}AUTO_OVERWRITE${NORMAL} mode to ${GREEN}true\n${NORMAL}"
     else
-        sed -i -e 's/AUTO_OVERWRITE=true/AUTO_OVERWRITE=false/g' config
+        sed -i -e 's/AUTO_OVERWRITE=true/AUTO_OVERWRITE=false/g' $INSTALL_DIR/config
         printf "Changed ${YELLOW}AUTO_OVERWRITE${NORMAL} mode to ${PURPLE}false\n${NORMAL}"
     fi
 }
@@ -123,12 +124,12 @@ getAbsoluteNum(){
 
 changeLiveTime(){
     days_to_change=$( getAbsoluteNum $1 )
-    sed -i "s/^\(DAYS_TO_KEEP_BACKUP=\).*/\1$days_to_change/" config
+    sed -i "s/^\(DAYS_TO_KEEP_BACKUP=\).*/\1$days_to_change/" $INSTALL_DIR/config
     printf "Changed ${PURPLE}\"LiveTime\"${NORMAL} to ${GREEN}$days_to_change days\n${NORMAL}".
 }
 
 printCurrentConfig(){
-    cat `pwd`/config
+    cat $INSTALL_DIR/config
 }
 
 defaultBackup(){

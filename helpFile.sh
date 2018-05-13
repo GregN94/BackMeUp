@@ -1,6 +1,7 @@
 #!/bin/bash
 
-source `pwd`/colors.sh
+INSTALL_DIR=
+source $INSTALL_DIR/colors.sh
 
 printHelp(){
     printf "${GREEN}BackMeUp${YELLOW} - simple shell script to create and manage your backups.

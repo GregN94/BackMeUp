@@ -1,7 +1,8 @@
 #!/bin/bash
 
-source `pwd`/backup.sh
-source `pwd`/colors.sh
+INSTALL_DIR=
+source $INSTALL_DIR/backup.sh
+source $INSTALL_DIR/colors.sh
 
 if [[ $1 = "-ls" || $1 = "-list" || $1 = "--list" ]];
 then
