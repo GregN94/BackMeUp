@@ -9,6 +9,15 @@ Clone this repository on your computer, go to cloned directory, and run ./instal
     cd BackMeUp/
     ./install
 
+To run this script try:
+
+    BackMeUp [option]
+
+    e.g, to see help:
+
+    BackMeUp -h
+
+
 Features included in programm:
 
 -All backups are stored in one major directory defined by User in config file.
