@@ -39,10 +39,3 @@ Features included in programm:
 
 -Option of adding/removing new folders to be backuped.
 
-
-TODO:
-
--Automatically run up script on daily basis.
-
--Backup on remote drive/repository??
-
