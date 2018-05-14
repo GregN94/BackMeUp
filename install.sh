@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DIRS=("menu.sh" "backup.sh" "helpFile.sh")
+DIRS=("menu.sh" "backup.sh" "helpFile.sh" "backupListMg.sh")
 
 setInstalationPath(){
     for dir in ${DIRS[@]};

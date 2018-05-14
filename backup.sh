@@ -1,9 +1,10 @@
 #!/bin/bash
 
-INSTALL_DIR=/home/grzegorz/BackMeUp
+INSTALL_DIR=
 source $INSTALL_DIR/config
 source $INSTALL_DIR/helpFile.sh
 source $INSTALL_DIR/colors.sh
+DIRS_TO_BACKUP=$INSTALL_DIR/listOfBackups
 
 suffix="$GENERAL_DIR"/
 DIFF_SAME_DATE="4046" #coefficient to calculate diff between dates
@@ -34,11 +35,11 @@ overwriteDir() {
 
 createBackup() {
     printf "${GREEN}Backuping dirs:\n${NORMAL}"
-    for dir in "${DIRS_TO_BACKUP[@]}";
+    while read dir;
     do
         printf "\t$dir\n"
         sudo cp -R $dir "$daily_dir"/
-    done
+    done < $DIRS_TO_BACKUP
 }
 
 createBackupDir() {
@@ -139,7 +140,17 @@ changeLiveTime(){
 }
 
 printCurrentConfig(){
-    cat $INSTALL_DIR/config
+    printf "\n${GREEN}Configuraion:${NORMAL}\n"
+    while read line;
+    do
+        printf "\t$line\n"
+    done < $INSTALL_DIR/config
+
+    printf "\n${PURPLE}Directories to backup:\n${NORMAL}"
+    while read line;
+    do
+        printf "\t$line\n"
+    done < $DIRS_TO_BACKUP
 }
 
 defaultBackup(){

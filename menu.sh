@@ -1,8 +1,10 @@
 #!/bin/bash
 
-INSTALL_DIR=/home/grzegorz/BackMeUp
+INSTALL_DIR=
 source $INSTALL_DIR/backup.sh
 source $INSTALL_DIR/colors.sh
+source $INSTALL_DIR/backupListMg.sh
+
 
 if [[ $1 = "-ls" || $1 = "-list" || $1 = "--list" ]];
 then
@@ -10,7 +12,7 @@ then
 elif [[ $1 = "-rm" || $1 = "-remove" || $1 = "--remove" ]];
 then
     deleteBackups ${@:2}
-elif [[ $1 = "-a" || $1 = "--auto" || $1 = "-auto" ]];
+elif [[ $1 = "-m" || $1 = "--mode" || $1 = "-mode" ]];
 then
     changeOverwriteMode
 elif [[ $1 = "-p" || $1 = "-print" || $1 = "--print" ]];
@@ -22,6 +24,9 @@ then
 elif [[ $1 = "-h" || $1 = "--help" || $1 = "-help" ]];
 then
     printHelp
+elif [[ $1 = "-a" || $1 = "-add" || $1 = "--add" ]];
+then
+    addNewBackup ${@:2}
 elif [[ $1 = "" ]];
 then
     defaultBackup
