@@ -26,7 +26,12 @@ then
     printHelp
 elif [[ $1 = "-a" || $1 = "-add" || $1 = "--add" ]];
 then
-    addNewBackup ${@:2}
+    addToBackupList ${@:2}
+    printBackupList
+elif [[ $1 = "-d" || $1 = "-delete" || $1 = "--delete" ]];
+then
+    deleteFromBackupList ${@:2}
+    printBackupList
 elif [[ $1 = "" ]];
 then
     defaultBackup

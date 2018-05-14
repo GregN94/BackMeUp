@@ -20,6 +20,7 @@ ${PURPLE}Script can be also run with options:
   -rm, -remove or --remove | [backup dirs]   |  Deletes all backups. Adding arguments define list of backups to delete.
   -ls, -list   or --list   | [backup dir]    |  Lists all backups. Adding argument list contnt od selected backup.
   -a,  -add    or --add    | [backup dirs]   |  Add dirs to backup list.
+  -d,  -delete or --delete | [backup dirs]   |  Delete dirs from backup list.
   -t,  -time   or --time,  | [time in days]  |  Changes \"LiveTime\" of backups.${NORMAL}
 \n"
 

@@ -2,14 +2,15 @@
 
 INSTALL_DIR=
 DIRS_TO_BACKUP=$INSTALL_DIR/listOfBackups
+source $INSTALL_DIR/colors.sh
 
 addExistingFile(){
     if ls $1 >/dev/null;
     then
-        printf "Added $1 to list.\n"
+        printf "\t${GREEN}Added $1 to list.${NORMAL}\n"
         echo "$1" >> $DIRS_TO_BACKUP
     else
-        printf "Omitting $1. File/Dir $1 doesn't exist(or incorrect path).\n"
+        printf "${PURPLE}Omitting $1. File/Dir $1 doesn't exist(or incorrect path).${NORMAL}\n"
     fi
 }
 
@@ -22,18 +23,27 @@ addBackupsFromList(){
 
 removeDuplicates(){
     sort -u $DIRS_TO_BACKUP > temp_file
-    cat temp_file > $DIRS_TO_BACKUP
-    rm temp_file
+    mv temp_file  $DIRS_TO_BACKUP
 }
 
-addNewBackup(){
+addToBackupList(){
     if [[ $1 = "" ]];
     then
-        printf "Empty argument list. Add new List:\n"
+        printf "${YELLOW}Empty argument list. Add new List:${NORMAL}\n"
         read new_list
         addNewBackup $new_list
     else
         addBackupsFromList ${@:1}
-        removeDuplicates
     fi
+    removeDuplicates
+}
+
+deleteFromBackupList(){
+    printf "${PURPLE}Deleted from list:${NORMAL}\n"
+    for to_delete in ${@:1};
+    do
+        printf "\t$to_delete\n"
+        grep -vx $to_delete $DIRS_TO_BACKUP > temp
+        mv temp $DIRS_TO_BACKUP
+    done
 }

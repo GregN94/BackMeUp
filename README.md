@@ -37,10 +37,10 @@ Features included in programm:
 
 -Option to remove selectedd list of backups.
 
+-Option of adding/removing new folders to be backuped.
+
 
 TODO:
-
--Option of adding/removing new folders to be backuped.
 
 -Automatically run up script on daily basis.
 

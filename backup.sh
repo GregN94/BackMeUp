@@ -102,12 +102,12 @@ printBackups(){
 deleteBackups(){
     if [[ $1 = "" ]];
     then
-        rm -rf "$GENERAL_DIR"/*
+        sudo rm -rf "$GENERAL_DIR"/*
         printf "${PURPLE}Deleting all folders in $GENERAL_DIR${NORMAL}\n"
     else
         for dir in ${@:1};
             do
-            rm -rf "$GENERAL_DIR"/$dir
+            sudo rm -rf "$GENERAL_DIR"/$dir
             printf "${PURPLE}Deleting folder $GENERAL_DIR/$dir${NORMAL}\n"
         done
     fi
@@ -139,6 +139,14 @@ changeLiveTime(){
     printf "Changed ${PURPLE}\"LiveTime\"${NORMAL} to ${GREEN}$days_to_change days\n${NORMAL}".
 }
 
+printBackupList(){
+    printf "\n${PURPLE}Directories to backup:\n${NORMAL}"
+    while read line;
+    do
+        printf "\t$line\n"
+    done < $DIRS_TO_BACKUP
+}
+
 printCurrentConfig(){
     printf "\n${GREEN}Configuraion:${NORMAL}\n"
     while read line;
@@ -146,11 +154,7 @@ printCurrentConfig(){
         printf "\t$line\n"
     done < $INSTALL_DIR/config
 
-    printf "\n${PURPLE}Directories to backup:\n${NORMAL}"
-    while read line;
-    do
-        printf "\t$line\n"
-    done < $DIRS_TO_BACKUP
+    printBackupList
 }
 
 defaultBackup(){
